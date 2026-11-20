@@ -6,6 +6,7 @@ export interface Product {
   price: number;
   category: "Sneakers" | "Audio" | "Wearables" | "Gadgets";
   emoji: string;
+  image: string; // static SVG asset path in public/products
   accent: string; // CSS color used for the card art background
   accent2: string; // second color so the art can be a gradient
   rating: number; // 0 to 5, shown as stars
@@ -22,6 +23,7 @@ export const products: Product[] = [
     price: 129,
     category: "Sneakers",
     emoji: "👟",
+    image: "/products/wave-runner.svg",
     accent: "#6c8cff",
     accent2: "#9db5ff",
     rating: 4.6,
@@ -37,6 +39,7 @@ export const products: Product[] = [
     price: 149,
     category: "Sneakers",
     emoji: "🥾",
+    image: "/products/trail-blazer.svg",
     accent: "#2f9e6f",
     accent2: "#5fd1a0",
     rating: 4.4,
@@ -51,6 +54,7 @@ export const products: Product[] = [
     price: 89,
     category: "Audio",
     emoji: "🎧",
+    image: "/products/pulse-buds.svg",
     accent: "#a06cff",
     accent2: "#c9a6ff",
     rating: 4.7,
@@ -66,6 +70,7 @@ export const products: Product[] = [
     price: 59,
     category: "Audio",
     emoji: "🔊",
+    image: "/products/echo-speaker.svg",
     accent: "#e8820c",
     accent2: "#ffb259",
     rating: 4.2,
@@ -80,6 +85,7 @@ export const products: Product[] = [
     price: 199,
     category: "Wearables",
     emoji: "⌚",
+    image: "/products/time-keeper.svg",
     accent: "#d64d7a",
     accent2: "#ff85ab",
     rating: 4.8,
@@ -95,6 +101,7 @@ export const products: Product[] = [
     price: 69,
     category: "Wearables",
     emoji: "📿",
+    image: "/products/focus-band.svg",
     accent: "#1fae9e",
     accent2: "#5fe0d1",
     rating: 4.1,
@@ -109,6 +116,7 @@ export const products: Product[] = [
     price: 49,
     category: "Gadgets",
     emoji: "🔋",
+    image: "/products/power-brick.svg",
     accent: "#4b63d6",
     accent2: "#7d92ff",
     rating: 4.5,
@@ -123,6 +131,7 @@ export const products: Product[] = [
     price: 119,
     category: "Gadgets",
     emoji: "📷",
+    image: "/products/clip-cam.svg",
     accent: "#e85d5d",
     accent2: "#ff9090",
     rating: 4.3,

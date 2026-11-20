@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="460" height="345" viewBox="0 0 460 345">
+<defs>
+  <linearGradient id="g_echo-speaker" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#e8820c"/>
+    <stop offset="100%" stop-color="#ffb259"/>
+  </linearGradient>
+</defs>
+<rect width="460" height="345" fill="url(#g_echo-speaker)"/>
+<circle cx="230" cy="172" r="105" fill="#ffffff" fill-opacity="0.18"/>
+<text x="230" y="182" font-size="120" text-anchor="middle" dominant-baseline="central">🔊</text>
+</svg>

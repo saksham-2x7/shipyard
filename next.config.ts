@@ -1,10 +1,13 @@
 import type { NextConfig } from "next";
 
+const isProd = process.env.NODE_ENV === "production";
+
+// Static export so the catalog can be hosted on GitHub Pages at /shipyard.
 const nextConfig: NextConfig = {
-  cacheComponents: true,
-  partialPrefetching: true,
+  output: "export",
+  basePath: isProd ? "/shipyard" : "",
+  trailingSlash: true,
   images: {
-    // Keep unoptimized for static-export / Pages compatibility; Next/Image still provides CLS protection and lazy loading
     unoptimized: true,
     dangerouslyAllowSVG: true,
     contentDispositionType: "attachment",

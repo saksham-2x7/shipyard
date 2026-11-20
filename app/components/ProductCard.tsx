@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import Stars from "./Stars";
 import type { Product } from "../data/products";
@@ -9,11 +10,19 @@ export default function ProductCard({ product }: { product: Product }) {
       <div
         className="card-art"
         style={{
+          position: "relative",
           background: `linear-gradient(135deg, ${product.accent}, ${product.accent2})`,
         }}
       >
         {product.badge && <span className="card-badge">{product.badge}</span>}
-        <span className="card-emoji">{product.emoji}</span>
+        <Image
+          src={product.image}
+          alt={product.name}
+          width={460}
+          height={345}
+          className="card-img"
+          sizes="(max-width: 560px) 100vw, 230px"
+        />
       </div>
       <div className="card-body">
         <span className="card-category">{product.category}</span>

@@ -1,10 +1,31 @@
 import type { Metadata } from "next";
+import { Inter } from "next/font/google";
 import Link from "next/link";
 import "./globals.css";
 
+// Self-host Google Font via next/font to eliminate external font requests and layout shifts.
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
+});
+
 export const metadata: Metadata = {
-  title: "ShipYard",
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL || "https://shipyard-storefront.vercel.app"
+  ),
+  title: {
+    default: "ShipYard",
+    template: "%s | ShipYard",
+  },
   description: "Gear for people who build, run, and explore.",
+  keywords: ["storefront", "gear", "sneakers", "audio", "wearables", "gadgets"],
+  openGraph: {
+    title: "ShipYard",
+    description: "Gear for people who build, run, and explore.",
+    type: "website",
+    siteName: "ShipYard",
+  },
 };
 
 export default function RootLayout({
@@ -13,8 +34,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body>
+    <html lang="en" className={inter.variable}>
+      <body className={inter.className}>
         <nav className="nav">
           <div className="nav-inner">
             <Link href="/" className="nav-brand">

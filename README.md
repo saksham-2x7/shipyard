@@ -1,54 +1,107 @@
-# ShipYard
+# ShipYard – Product Catalog Storefront
 
-A product-catalog storefront built from scratch with Next.js + TypeScript.
+A high-performance, fully optimized product-catalog storefront built from scratch with Next.js App Router and TypeScript.
 
-## What it does
+## 🚀 Live Demo
 
-- **Responsive product grid** on the home page, rendered dynamically from typed data.
-- **Dynamic `/products/[id]` detail route**, with dedicated pages pre-rendered for each product.
-- **Typed `ProductCard` component** and a strongly typed `Product` interface.
-- **Custom 404 page** (`not-found.tsx`) for invalid or nonexistent product IDs.
-- **`generateStaticParams`** to pre-build static pages for each catalog item.
+**Live Storefront**: [https://saksham-2x7.github.io/shipyard/](https://saksham-2x7.github.io/shipyard/)
 
-## Performance & SEO Optimizations (Part 2)
+---
 
-- **`next/image`**: Responsive SVG product artwork with explicit width/height and responsive `sizes` to eliminate Cumulative Layout Shift (CLS). Priority loading enabled on the product detail hero image for optimal LCP.
-- **`next/font`**: Self-hosted Google Font (`Inter` from `next/font/google`) loaded without external HTTP requests or render-blocking stylesheets.
-- **Code Splitting & Lazy Loading (`next/dynamic`)**: Heavy below-the-fold customer `Reviews` component is lazy-loaded with a dedicated skeleton fallback to keep the initial page bundle lean.
-- **Metadata & Dynamic SEO (`generateMetadata`)**: Root layout provides brand title templates (`%s | ShipYard`) and OpenGraph metadata; dynamic product detail pages use `generateMetadata` to populate tailored titles, descriptions, and preview images per product.
-- **Static Export Friendly**: Configured with `unoptimized: true` and SVG CSP rules in `next.config.ts`.
+## ⚡ Lighthouse Performance Audit (Mobile)
 
-## Run it locally
+Tested on production build with simulated mobile emulation (Slow 4G throttling):
 
-```bash
-npm install
-npm run dev
-# open http://localhost:3000
-```
+![Lighthouse Audit](docs/lighthouse.png)
 
-## Build the production site
+| Category | Score | Status |
+| :--- | :---: | :---: |
+| **Performance** | **100** | 🟢 Optimal |
+| **Accessibility** | **100** | 🟢 Optimal |
+| **Best Practices** | **96** | 🟢 Optimal |
+| **SEO** | **100** | 🟢 Optimal |
 
-```bash
-npm run build
-```
+### Core Web Vitals & Metrics
 
-## Project structure
+- **First Contentful Paint (FCP)**: 1.1 s
+- **Largest Contentful Paint (LCP)**: 1.1 s
+- **Total Blocking Time (TBT)**: 0 ms
+- **Cumulative Layout Shift (CLS)**: 0
+- **Speed Index**: 1.1 s
+
+---
+
+## 🛠️ Features & Architectural Highlights
+
+### 1. Resilient State Handling (Part 3)
+- **`app/loading.tsx`**: Instant loading skeleton and responsive cards while components stream.
+- **`app/error.tsx`**: Client Component (`"use client"`) error boundary with graceful retry button (`reset()`) and fallback navigation.
+- **`app/not-found.tsx`**: Tailored 404 page for missing or invalid product IDs.
+
+### 2. High-Performance Media & Assets (Part 2)
+- **`next/image`**: Explicit aspect ratios (`width={460}`, `height={345}`) and responsive `sizes` on all product cards and detail pages to prevent Cumulative Layout Shift (CLS). Priority loading enabled on the above-the-fold detail hero image.
+- **`next/font`**: Zero layout shift and no external HTTP requests via self-hosted Google Font `Inter`.
+- **Code Splitting & Lazy Loading (`next/dynamic`)**: Heavy below-the-fold customer `Reviews` component is lazy-loaded with a dedicated fallback placeholder.
+- **Dynamic SEO Metadata (`generateMetadata`)**: Dynamic tab titles (`${product.name} | ShipYard`) and OpenGraph tags per product page.
+
+### 3. Static Site Generation & Automated Deployment
+- Configured for Next.js static export (`output: "export"`, `basePath: "/shipyard"`, `trailingSlash: true`).
+- Automated CI/CD pipeline via GitHub Actions (`.github/workflows/deploy.yml`) that builds the project and deploys directly to GitHub Pages on push.
+
+---
+
+## 💻 Local Development
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/saksham-2x7/shipyard.git
+   cd shipyard
+   ```
+
+2. **Install dependencies**:
+   ```bash
+   npm install
+   ```
+
+3. **Start the development server**:
+   ```bash
+   npm run dev
+   ```
+   Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+4. **Build the production static export**:
+   ```bash
+   npm run build
+   ```
+   The static export is generated in the `./out` directory.
+
+---
+
+## 📂 Project Structure
 
 ```text
 app/
-  layout.tsx              root layout (next/font Inter + nav + footer + title template)
-  page.tsx                home page: responsive product grid + page metadata
-  globals.css             storefront styling, responsive grid & review cards
-  not-found.tsx           friendly 404 page
+  layout.tsx              Root layout (next/font Inter + nav + footer + metadata template)
+  page.tsx                Home page: responsive product grid + SEO metadata
+  loading.tsx             Loading skeleton placeholder state
+  error.tsx               Client component error boundary with retry ("use client")
+  not-found.tsx           Custom 404 page for nonexistent product routes
+  globals.css             Storefront styles, responsive grid, and state indicators
   components/
-    ProductCard.tsx       typed card component with next/image
-    Stars.tsx             accessible rating stars
+    ProductCard.tsx       Typed card component using next/image
+    Stars.tsx             Accessible rating stars component
   data/
-    products.ts           Product type + product catalog data + getProduct()
+    products.ts           Strongly typed Product interface and catalog data
   products/
     [id]/
-      page.tsx            dynamic product detail route with generateMetadata & next/image
-      Reviews.tsx         lazy-loaded interactive customer reviews component ("use client")
+      page.tsx            Dynamic detail route with generateMetadata & next/image
+      Reviews.tsx         Lazy-loaded interactive customer reviews component ("use client")
 public/
-  products/               crisp vector SVG product artwork for all catalog items
+  products/               Crisp vector SVG artwork for all catalog products
+.github/
+  workflows/
+    deploy.yml            GitHub Actions workflow to build and publish to GitHub Pages
+    ci.yml                GitHub Actions CI build & type-check verification workflow
+docs/
+  lighthouse.png          Verified 100/100 Lighthouse Mobile audit report screenshot
 ```
